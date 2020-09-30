@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route to="/" element={<JobsSearch />} />
-        <Route to="/details/:id" element={<JobDetails />} />
+        <Route path="/" element={<JobsSearch />} />
+        <Route path="/details/:id" element={<JobDetails />} />
       </Routes>
 
       <Footer />
