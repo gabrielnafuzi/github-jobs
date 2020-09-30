@@ -6,7 +6,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import JobsSearch from './pages/JobsSearch';
-import JobDescription from './pages/JobDescription';
+import JobDetails from './pages/JobDetails';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Header />
       <Routes>
         <Route to="/" element={<JobsSearch />} />
-        <Route to="/:job" element={<JobDescription />} />
+        <Route to="/details/:id" element={<JobDetails />} />
       </Routes>
 
       <Footer />

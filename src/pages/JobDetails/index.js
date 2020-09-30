@@ -2,8 +2,8 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-const JobDescription = () => {
+const JobDetails = () => {
   return <div />;
 };
 
-export default JobDescription;
+export default JobDetails;
