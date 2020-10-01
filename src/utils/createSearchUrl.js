@@ -1,30 +1,20 @@
-export default function createSearchUrl(
-  description,
-  fulltime,
-  locationInput,
-  locationsOptions
-) {
-  let url = 'https://www.githubjobs.io/jobs/search?';
-  const locations = [];
-
-  if (locationInput) locations.push(clearString(locationInput));
-
-  locationsOptions.forEach(locationItem => {
-    if (locationItem) locations.push(clearString(locationItem));
-  });
+export default function createSearchUrl(description, fulltime, location) {
+  let url =
+    'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?';
 
   url += `description=${clearString(description)}`;
-  url += `&full_time=${fulltime}`;
 
-  if (locations.length) {
-    locations.forEach((locationItem, index) => {
-      url += `&location${index + 1}=${locationItem}`;
-    });
+  if (location) {
+    url += `&location=${clearString(location)}`;
+  }
+
+  if (fulltime) {
+    url += `&full_time=${fulltime}`;
   }
 
   return url;
 }
 
 function clearString(text) {
-  return text.trim().replace(/\s/g, '%20');
+  return text.trim().replace(/\s/g, '+');
 }

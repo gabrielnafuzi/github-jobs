@@ -9,49 +9,59 @@ import {
 } from './styles';
 
 const Options = ({
-  fulltime,
-  setFulltime,
+  fullTime,
+  setFullTime,
   locationInput,
   setLocationInput,
-  locationsOptions,
-  setLocationsOptions,
+  locationOptions,
+  setLocationOptions,
 }) => {
-  function handleLocationsChange({ target }) {
-    if (target.checked) {
-      setLocationsOptions([...locationsOptions, target.value]);
-    } else {
-      setLocationsOptions(
-        locationsOptions.filter(location => location !== target.value)
-      );
+  const locations = [
+    {
+      name: 'london',
+      label: 'London',
+    },
+    {
+      name: 'amsterdam',
+      label: 'Amsterdam',
+    },
+    {
+      name: 'new+york',
+      label: 'New York',
+    },
+    {
+      name: 'berlin',
+      label: 'Berlin',
+    },
+  ];
+
+  async function handleChange({ target }) {
+    if (target.type === 'text') {
+      setLocationInput(target.value);
+      setLocationOptions('');
+    }
+
+    if (target.type === 'checkbox') {
+      if (target.value === locationOptions) {
+        setLocationOptions('');
+      } else {
+        setLocationOptions(target.value);
+        setLocationInput('');
+      }
     }
   }
 
-  function handleFulltimeChange({ target }) {
-    setFulltime(target.checked);
-  }
-
-  function checkLocation(location) {
-    return locationsOptions.includes(location);
-  }
-
-  const CheckBox = ({ name, label, ...rest }) => (
-    <CheckBoxBlock>
-      <label htmlFor={name}>{label}</label>
-      <input
-        id={name}
-        type="checkbox"
-        value={name}
-        onChange={
-          name === 'fulltime' ? handleFulltimeChange : handleLocationsChange
-        }
-        {...rest}
-      />
-    </CheckBoxBlock>
-  );
-
   return (
     <Container>
-      <CheckBox name="fulltime" label="Full time" checked={fulltime} />
+      <CheckBoxBlock>
+        <label htmlFor="fulltime">Full Time Only</label>
+        <input
+          id="fulltime"
+          type="checkbox"
+          value={fullTime}
+          onChange={({ target }) => setFullTime(target.checked)}
+        />
+      </CheckBoxBlock>
 
       <LocationBlock>
         <h1>Location</h1>
@@ -62,26 +72,23 @@ const Options = ({
             type="text"
             placeholder="City, state, zip code or country"
             value={locationInput}
-            onChange={({ target }) => setLocationInput(target.value)}
+            onChange={handleChange}
           />
         </InputLocationBlock>
       </LocationBlock>
 
-      <CheckBox name="london" label="London" checked={checkLocation('london')} />
-
-      <CheckBox
-        name="amsterdam"
-        label="Amsterdam"
-        checked={checkLocation('amsterdam')}
-      />
-
-      <CheckBox
-        name="new%20york"
-        label="New York"
-        checked={checkLocation('new%20york')}
-      />
-
-      <CheckBox name="berlin" label="Berlin" checked={checkLocation('berlin')} />
+      {locations.map(locationItem => (
+        <CheckBoxBlock key={locationItem.name}>
+          <label htmlFor={locationItem.name}>{locationItem.label}</label>
+          <input
+            id={locationItem.name}
+            type="checkbox"
+            value={locationItem.name}
+            checked={locationItem.name === locationOptions}
+            onChange={handleChange}
+          />
+        </CheckBoxBlock>
+      ))}
     </Container>
   );
 };

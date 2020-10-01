@@ -19,6 +19,10 @@ export const Container = styled.div`
 `;
 
 export const ImageBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 90px;
   height: 90px;
 
@@ -26,6 +30,11 @@ export const ImageBlock = styled.div`
     object-fit: contain;
     height: 90px;
     border-radius: 0.2rem;
+  }
+
+  p {
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
   }
 `;
 

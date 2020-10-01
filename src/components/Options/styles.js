@@ -20,6 +20,8 @@ export const CheckBoxBlock = styled.div`
     border-radius: 0.1rem;
     outline: none;
 
+    cursor: pointer;
+
     &:checked {
       appearance: checkbox;
     }
