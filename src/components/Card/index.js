@@ -9,32 +9,29 @@ import {
   ClockIcon,
 } from './styles';
 
-const Card = () => {
+const Card = ({ company, companyLogo, title, type, location, createdAt }) => {
   return (
     <Container>
       <ImageBlock>
-        <img
-          src="https://kasisto.com/wp-content/themes/kasisto/img/client-logo.png"
-          alt="Kasisto"
-        />
+        {companyLogo ? <img src={companyLogo} alt={company} /> : <p>not found</p>}
       </ImageBlock>
 
       <JobInfos>
         <div className="wrapper">
-          <h1>Kasisto</h1>
-          <p>Front-End Software Engineer</p>
-          <span>Full time</span>
+          <h1>{company}</h1>
+          <p>{title}</p>
+          {type === 'Full Time' && <span>Full time</span>}
         </div>
 
         <List>
           <li>
             <PlanetIcon />
-            <span>New York</span>
+            <span>{location}</span>
           </li>
 
           <li>
             <ClockIcon />
-            <span>5 days ago</span>
+            <span>{createdAt}</span>
           </li>
         </List>
       </JobInfos>

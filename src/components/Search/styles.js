@@ -78,6 +78,14 @@ export const SearchForm = styled.form`
     padding: 0.7rem 1.35rem;
     background: var(--color-blue);
     border-radius: 0.2rem;
+    outline: none;
+    transition: 0.2s;
+
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(92%);
+    }
   }
 `;
 
