@@ -29,3 +29,9 @@ export const RightSide = styled.div`
     width: 70%;
   }
 `;
+
+export const NoResults = styled.h1`
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--color-title);
+`;
