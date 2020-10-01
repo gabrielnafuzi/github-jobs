@@ -8,7 +8,7 @@ import Pagination from '../../components/Pagination';
 import Card from '../../components/Card';
 import createSearchUrl from '../../utils/createSearchUrl';
 
-import { Container, Main, LeftSide, RightSide } from './styles';
+import { Container, Main, LeftSide, RightSide, NoResults } from './styles';
 import Loading from '../../components/Loading';
 
 const JobsSearch = () => {
@@ -19,22 +19,23 @@ const JobsSearch = () => {
   const [locationOptions, setLocationOptions] = React.useState('');
 
   const [loading, setLoading] = React.useState(false);
+  const [page, setPage] = React.useState(1);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    setJobs(null);
     setLoading(true);
+    setPage(1);
 
     try {
       const location = locationInput ? locationInput : locationOptions;
 
-      const url = createSearchUrl(description, fullTime, location);
+      const url = createSearchUrl(description, fullTime, location, page);
 
       const response = await fetch(url);
       const json = await response.json();
 
-      setJobs(json.slice(0, 5));
+      setJobs(json);
     } catch (err) {
       console.log(err);
     } finally {
@@ -81,20 +82,29 @@ const JobsSearch = () => {
 
         <RightSide>
           {loading && <Loading />}
-          {jobs &&
-            jobs.map(job => (
-              <Card
-                key={job.id}
-                company={job.company}
-                companyLogo={job.company_logo}
-                title={job.title}
-                type={job.type}
-                location={job.location}
-                createdAt={getCreatedDate(job.created_at)}
-              />
+          {!jobs ||
+            (jobs.length === 0 && (
+              <NoResults>
+                No results. Please modify your search and try again.
+              </NoResults>
             ))}
-
-          <Pagination />
+          {jobs &&
+            jobs
+              .slice(5 * (page - 1), 5 * page)
+              .map(job => (
+                <Card
+                  key={job.id}
+                  company={job.company}
+                  companyLogo={job.company_logo}
+                  title={job.title}
+                  type={job.type}
+                  location={job.location}
+                  createdAt={getCreatedDate(job.created_at)}
+                />
+              ))}
+          {jobs && jobs.length > 0 && (
+            <Pagination page={page} setPage={setPage} totalJobs={jobs.length} />
+          )}
         </RightSide>
       </Main>
     </Container>

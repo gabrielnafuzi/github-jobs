@@ -1,8 +1,10 @@
-export default function createSearchUrl(description, fulltime, location) {
+export default function createSearchUrl(description, fulltime, location, page) {
   let url =
     'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?';
 
-  url += `description=${clearString(description)}`;
+  url += `page=${page}`
+
+  url += `&description=${clearString(description)}`;
 
   if (location) {
     url += `&location=${clearString(location)}`;

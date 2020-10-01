@@ -68,6 +68,10 @@ export const Box = styled.div`
       height: 20px;
     }
   }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const ArrowLeftIcon = styled(KeyboardArrowLeftIcon)``;
