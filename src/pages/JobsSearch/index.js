@@ -9,6 +9,7 @@ import Card from '../../components/Card';
 import createSearchUrl from '../../utils/createSearchUrl';
 
 import { Container, Main, LeftSide, RightSide } from './styles';
+import Loading from '../../components/Loading';
 
 const JobsSearch = () => {
   const [jobs, setJobs] = React.useState(null);
@@ -17,17 +18,28 @@ const JobsSearch = () => {
   const [locationInput, setLocationInput] = React.useState('');
   const [locationOptions, setLocationOptions] = React.useState('');
 
+  const [loading, setLoading] = React.useState(false);
+
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const location = locationInput ? locationInput : locationOptions;
+    setJobs(null);
+    setLoading(true);
 
-    const url = createSearchUrl(description, fullTime, location);
+    try {
+      const location = locationInput ? locationInput : locationOptions;
 
-    const response = await fetch(url);
-    const json = await response.json();
+      const url = createSearchUrl(description, fullTime, location);
 
-    setJobs(json.slice(0, 5));
+      const response = await fetch(url);
+      const json = await response.json();
+
+      setJobs(json.slice(0, 5));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   }
 
   function getCreatedDate(date) {
@@ -68,6 +80,7 @@ const JobsSearch = () => {
         </LeftSide>
 
         <RightSide>
+          {loading && <Loading />}
           {jobs &&
             jobs.map(job => (
               <Card
