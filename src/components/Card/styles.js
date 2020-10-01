@@ -23,7 +23,7 @@ export const ImageBlock = styled.div`
   height: 90px;
 
   img {
-    object-fit: cover;
+    object-fit: contain;
     height: 90px;
     border-radius: 0.2rem;
   }
