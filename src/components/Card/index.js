@@ -14,7 +14,9 @@ const Card = ({ id, company, companyLogo, title, type, location, createdAt }) =>
   return (
     <Container>
       <ImageBlock>
-        {companyLogo ? <img src={companyLogo} alt={company} /> : <p>not found</p>}
+        <Link to={`/details/${id}`}>
+          {companyLogo ? <img src={companyLogo} alt={company} /> : <p>not found</p>}
+        </Link>
       </ImageBlock>
 
       <JobInfos>

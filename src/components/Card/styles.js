@@ -26,6 +26,10 @@ export const ImageBlock = styled.div`
   width: 90px;
   height: 90px;
 
+  a {
+    text-decoration: none;
+  }
+
   img {
     object-fit: contain;
     height: 90px;

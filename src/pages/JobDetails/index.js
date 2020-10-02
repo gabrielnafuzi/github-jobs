@@ -89,9 +89,13 @@ const JobDetails = () => {
                 </CompanyLogoBlock>
 
                 <InfoBlock>
-                  <Link to={job.company_url} target="_blank">
+                  <a
+                    href={job.company_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {job.company}
-                  </Link>
+                  </a>
 
                   <LocationBlock>
                     <PlanetIcon />
