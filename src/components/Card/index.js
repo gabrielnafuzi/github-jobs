@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
@@ -9,7 +10,7 @@ import {
   ClockIcon,
 } from './styles';
 
-const Card = ({ company, companyLogo, title, type, location, createdAt }) => {
+const Card = ({ id, company, companyLogo, title, type, location, createdAt }) => {
   return (
     <Container>
       <ImageBlock>
@@ -19,8 +20,9 @@ const Card = ({ company, companyLogo, title, type, location, createdAt }) => {
       <JobInfos>
         <div className="wrapper">
           <h1>{company}</h1>
-          <p>{title}</p>
+          <Link to={`/details/${id}`}>{title}</Link>
           {type === 'Full Time' && <span>Full time</span>}
+          {type === 'Contract' && <span>Contract</span>}
         </div>
 
         <List>
