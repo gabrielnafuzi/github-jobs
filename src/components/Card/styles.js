@@ -49,6 +49,9 @@ export const JobInfos = styled.div`
   }
 
   .wrapper {
+    display: flex;
+    flex-direction: column;
+
     h1 {
       font-size: 0.6rem;
       font-weight: 700;
@@ -56,7 +59,7 @@ export const JobInfos = styled.div`
       color: var(--color-blue-dark);
     }
 
-    p {
+    a {
       margin-top: 0.4rem;
       margin-bottom: 0.7rem;
 
@@ -64,6 +67,12 @@ export const JobInfos = styled.div`
       font-weight: 400;
       line-height: 0.9375rem;
       color: var(--color-blue-dark);
+
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     span {

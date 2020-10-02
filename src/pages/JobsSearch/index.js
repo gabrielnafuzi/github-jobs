@@ -1,5 +1,4 @@
 import React from 'react';
-import { formatDistanceToNow } from 'date-fns';
 
 import Search from '../../components/Search';
 import Options from '../../components/Options';
@@ -10,6 +9,7 @@ import createSearchUrl from '../../utils/createSearchUrl';
 
 import { Container, Main, LeftSide, RightSide, NoResults } from './styles';
 import Loading from '../../components/Loading';
+import getCreatedDate from '../../utils/getCreatedDate';
 
 const JobsSearch = () => {
   const [jobs, setJobs] = React.useState(null);
@@ -41,23 +41,6 @@ const JobsSearch = () => {
     } finally {
       setLoading(false);
     }
-  }
-
-  function getCreatedDate(date) {
-    const year = new Date(date).getFullYear();
-    const month = new Date(date).getMonth();
-    const day = new Date(date).getDate();
-    const hours = new Date(date).getHours();
-    const minutes = new Date(date).getMinutes();
-    const seconds = new Date(date).getSeconds();
-
-    return formatDistanceToNow(
-      new Date(year, month, day, hours, minutes, seconds),
-      {
-        includeSeconds: true,
-        addSuffix: true,
-      }
-    );
   }
 
   return (
@@ -94,6 +77,7 @@ const JobsSearch = () => {
               .map(job => (
                 <Card
                   key={job.id}
+                  id={job.id}
                   company={job.company}
                   companyLogo={job.company_logo}
                   title={job.title}

@@ -67,6 +67,7 @@ export const LeftSide = styled.div`
 
 export const HowToApplyBlock = styled.div`
   margin-top: 1.8rem;
+  word-break: break-word;
 
   h1 {
     font-family: Poppins;
@@ -118,7 +119,6 @@ export const JobTitleBlock = styled.div`
   h1 {
     font-size: 1.2rem;
     font-weight: 700;
-    line-height: 0.97rem;
 
     color: var(--color-blue-dark);
 
@@ -173,23 +173,38 @@ export const JobInfo = styled.div`
 `;
 
 export const CompanyLogoBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
   width: 42px;
   height: 42px;
   margin-right: 0.7rem;
 
   img {
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 0.2rem;
     height: 100%;
+  }
+
+  p {
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
   }
 `;
 
 export const InfoBlock = styled.div`
-  h1 {
+  a {
     font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.05rem;
     color: var(--color-blue-dark);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -216,12 +231,25 @@ export const LocationBlock = styled.div`
 `;
 
 export const JobDescription = styled.div`
-  p {
+  * {
     color: var(--color-blue-dark);
-    margin-bottom: 1.2rem;
     font-weight: 400;
     font-size: 0.8rem;
     line-height: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+
+  p,
+  ul {
+    margin-bottom: 1.2rem;
+  }
+
+  ul {
+    list-style: disc;
+
+    li {
+      margin-left: 1.6rem;
+    }
   }
 `;
 

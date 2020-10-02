@@ -8,13 +8,16 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 1.2rem;
-  font-weight: 700;
-  font-family: Poppins;
-  line-height: 1.8rem;
-  color: var(--color-title);
+  a {
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: Poppins;
+    line-height: 1.8rem;
+    text-decoration: none;
+    color: var(--color-title);
+  }
 
-  > span {
+  span {
     font-weight: 300;
   }
 `;
