@@ -11,7 +11,12 @@ const Pagination = ({ page, setPage, totalJobs }) => {
     <Container>
       <Box
         className={`${page === 1 ? 'disabled' : ''}`}
-        onClick={() => page > 1 && setPage(page - 1)}
+        onClick={() => {
+          if (page > 1) {
+            setPage(page - 1);
+            window.localStorage.setItem('page', page - 1);
+          }
+        }}
       >
         <ArrowLeftIcon />
       </Box>
@@ -19,14 +24,22 @@ const Pagination = ({ page, setPage, totalJobs }) => {
         <Box
           key={item}
           className={`number ${page === item && 'active'}`}
-          onClick={() => setPage(item)}
+          onClick={() => {
+            setPage(item);
+            window.localStorage.setItem('page', item);
+          }}
         >
           <span>{item}</span>
         </Box>
       ))}
       <Box
         className={`${page === paginationItens.length && 'disabled'}`}
-        onClick={() => page <= paginationItens.length - 1 && setPage(page + 1)}
+        onClick={() => {
+          if (page <= paginationItens.length - 1) {
+            setPage(page + 1);
+            window.localStorage.setItem('page', page + 1);
+          }
+        }}
       >
         <ArrowRightIcon />
       </Box>

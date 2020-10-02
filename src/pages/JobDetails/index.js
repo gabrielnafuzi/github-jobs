@@ -71,8 +71,7 @@ const JobDetails = () => {
             <JobHeader>
               <JobTitleBlock>
                 <h1>{job.title}</h1>
-                {job.type === 'Full Time' && <span>Full time</span>}
-                {job.type === 'Contract' && <span>Contract</span>}
+                {job.type && <span>{job.type}</span>}
               </JobTitleBlock>
 
               <CreatedAt>
