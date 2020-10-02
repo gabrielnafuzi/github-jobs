@@ -21,8 +21,7 @@ const Card = ({ id, company, companyLogo, title, type, location, createdAt }) =>
         <div className="wrapper">
           <h1>{company}</h1>
           <Link to={`/details/${id}`}>{title}</Link>
-          {type === 'Full Time' && <span>Full time</span>}
-          {type === 'Contract' && <span>Contract</span>}
+          {type && <span>{type}</span>}
         </div>
 
         <List>

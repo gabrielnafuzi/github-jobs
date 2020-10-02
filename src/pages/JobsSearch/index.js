@@ -21,8 +21,41 @@ const JobsSearch = () => {
   const [loading, setLoading] = React.useState(false);
   const [page, setPage] = React.useState(1);
 
+  React.useEffect(() => {
+    if (window.localStorage.getItem('params')) {
+      const params = JSON.parse(window.localStorage.getItem('params'));
+      const localPage = JSON.parse(window.localStorage.getItem('page'));
+
+      async function fetchData() {
+        setLoading(true);
+
+        try {
+          const url = createSearchUrl(
+            params.description,
+            params.fulltime,
+            params.location
+          );
+
+          const response = await fetch(url);
+          const json = await response.json();
+
+          setJobs(json);
+          setPage(localPage);
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      fetchData();
+    }
+  }, []);
+
   async function handleSubmit(event) {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
 
     setLoading(true);
     setPage(1);
@@ -35,6 +68,17 @@ const JobsSearch = () => {
       const response = await fetch(url);
       const json = await response.json();
 
+      window.localStorage.setItem(
+        'params',
+        JSON.stringify({
+          location,
+          description,
+          fullTime,
+        })
+      );
+
+      window.localStorage.setItem('page', page);
+
       setJobs(json);
     } catch (err) {
       console.log(err);
@@ -45,6 +89,8 @@ const JobsSearch = () => {
 
   return (
     <Container>
+      {loading && <Loading />}
+
       <Search
         handleSubmit={handleSubmit}
         description={description}
@@ -64,7 +110,6 @@ const JobsSearch = () => {
         </LeftSide>
 
         <RightSide>
-          {loading && <Loading />}
           {!jobs ||
             (jobs.length === 0 && (
               <NoResults>
