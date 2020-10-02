@@ -16,5 +16,5 @@ export default function createSearchUrl(description, fulltime, location) {
 }
 
 function clearString(text) {
-  return text.trim().replace(/\s/g, '+');
+  return text.trim().replace(/\s/g, '+').toLowerCase();
 }
