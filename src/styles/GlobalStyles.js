@@ -9,6 +9,8 @@ export default createGlobalStyle`
     --color-blue: #1E86FF;
     --color-blue-dark: #334680;
     --color-border: #b7bcce;
+
+    font-size: 20px;
   }
 
   * {
