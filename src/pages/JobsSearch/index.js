@@ -111,7 +111,7 @@ const JobsSearch = () => {
 
         <RightSide>
           {!jobs ||
-            (jobs.length === 0 && (
+            (!jobs.length && (
               <NoResults>
                 No results. Please modify your search and try again.
               </NoResults>
