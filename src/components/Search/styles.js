@@ -21,14 +21,14 @@ export const Container = styled.div`
 `;
 
 export const SearchForm = styled.form`
+  width: 100%;
   max-width: 790px;
 
-  width: 100%;
   margin: 0 auto;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background: var(--color-white);
 
   padding: 0 0.25rem 0 0.875rem;
@@ -79,12 +79,31 @@ export const SearchForm = styled.form`
     background: var(--color-blue);
     border-radius: 0.2rem;
     outline: none;
-    transition: 0.2s;
+
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
 
     cursor: pointer;
 
     &:hover {
-      filter: brightness(92%);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 26.25rem) {
+    flex-direction: column;
+    background: none;
+
+    > div {
+      background: var(--color-white);
+
+      border-radius: 0.2rem;
+      padding: 0 0.4rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.8rem 2.35rem;
     }
   }
 `;

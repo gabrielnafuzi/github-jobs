@@ -12,6 +12,7 @@
     "history": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-paginate": "^6.5.0",
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "3.4.3",
     "styled-components": "^5.2.0"

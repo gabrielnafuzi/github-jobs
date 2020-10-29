@@ -95,21 +95,14 @@ export const JobInfos = styled.div`
 export const List = styled.ul`
   margin-top: 1.3rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-
-  @media (min-width: 768px) {
-    align-self: flex-end;
-    margin-left: auto;
-
-    li + li {
-      margin-left: 1.425rem;
-    }
-  }
 
   li {
     display: flex;
     align-items: center;
     justify-self: flex-start;
+    margin-top: 0.6rem;
     margin-right: auto;
 
     svg {
@@ -125,6 +118,23 @@ export const List = styled.ul`
       font-weight: 500;
       line-height: 0.7rem;
       color: var(--color-text-secondary);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    align-self: flex-end;
+    margin-left: auto;
+
+    li + li {
+      margin-left: 1.425rem;
+    }
+  }
+
+  @media (min-width: 35rem) {
+    flex-direction: row;
+
+    li {
+      margin-top: 0;
     }
   }
 `;

@@ -1,15 +1,24 @@
 import React from 'react';
+import ReactPaginate from 'react-paginate';
 
 import Search from '../../components/Search';
 import Options from '../../components/Options';
-import Pagination from '../../components/Pagination';
-
 import Card from '../../components/Card';
-import createSearchUrl from '../../utils/createSearchUrl';
-
-import { Container, Main, LeftSide, RightSide, NoResults } from './styles';
 import Loading from '../../components/Loading';
+
+import createSearchUrl from '../../utils/createSearchUrl';
 import getCreatedDate from '../../utils/getCreatedDate';
+
+import {
+  Container,
+  Main,
+  LeftSide,
+  RightSide,
+  NoResults,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  Ellipsis,
+} from './styles';
 
 const JobsSearch = () => {
   const [jobs, setJobs] = React.useState(null);
@@ -19,38 +28,9 @@ const JobsSearch = () => {
   const [locationOptions, setLocationOptions] = React.useState('');
 
   const [loading, setLoading] = React.useState(false);
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
 
-  React.useEffect(() => {
-    if (window.localStorage.getItem('params')) {
-      const params = JSON.parse(window.localStorage.getItem('params'));
-      const localPage = JSON.parse(window.localStorage.getItem('page'));
-
-      async function fetchData() {
-        setLoading(true);
-
-        try {
-          const url = createSearchUrl(
-            params.description,
-            params.fulltime,
-            params.location
-          );
-
-          const response = await fetch(url);
-          const json = await response.json();
-
-          setJobs(json);
-          setPage(localPage);
-        } catch (err) {
-          console.log(err);
-        } finally {
-          setLoading(false);
-        }
-      }
-
-      fetchData();
-    }
-  }, []);
+  const itensPerPage = 5;
 
   async function handleSubmit(event) {
     if (event) {
@@ -58,26 +38,14 @@ const JobsSearch = () => {
     }
 
     setLoading(true);
-    setPage(1);
+    setPage(0);
 
     try {
       const location = locationInput ? locationInput : locationOptions;
-
       const url = createSearchUrl(description, fullTime, location, page);
 
       const response = await fetch(url);
       const json = await response.json();
-
-      window.localStorage.setItem(
-        'params',
-        JSON.stringify({
-          location,
-          description,
-          fullTime,
-        })
-      );
-
-      window.localStorage.setItem('page', page);
 
       setJobs(json);
     } catch (err) {
@@ -85,6 +53,10 @@ const JobsSearch = () => {
     } finally {
       setLoading(false);
     }
+  }
+
+  function handlePageChange({ selected }) {
+    setPage(selected);
   }
 
   return (
@@ -118,7 +90,7 @@ const JobsSearch = () => {
             ))}
           {jobs &&
             jobs
-              .slice(5 * (page - 1), 5 * page)
+              .slice(itensPerPage * page, itensPerPage * (page + 1))
               .map(job => (
                 <Card
                   key={job.id}
@@ -132,7 +104,18 @@ const JobsSearch = () => {
                 />
               ))}
           {jobs && jobs.length > 0 && (
-            <Pagination page={page} setPage={setPage} totalJobs={jobs.length} />
+            <ReactPaginate
+              previousLabel={<ArrowLeftIcon />}
+              nextLabel={<ArrowRightIcon />}
+              breakLabel={<Ellipsis />}
+              breakClassName={'break-me'}
+              pageCount={10}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={1}
+              onPageChange={handlePageChange}
+              containerClassName={'pagination'}
+              activeClassName={'active'}
+            />
           )}
         </RightSide>
       </Main>
